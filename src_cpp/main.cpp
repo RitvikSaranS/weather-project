@@ -42,6 +42,7 @@ int main(){
     res = curl_easy_perform(curl);
     curl_easy_cleanup(curl);
     nlohmann::json data = nlohmann::json::parse(readBuffer);
+    if (data["cod"] == 200) {
     std::cout<< "\n~~~~ Weather Report ~~~~\n" << std::endl;
     std::cout<< "Location\t:\t" << data["name"] << "(" << data["coord"]["lat"] << ", " << data["coord"]["lon"] << "), Country: " << data["sys"]["country"] <<std::endl;
     float tempjson = data["main"]["temp"]; tempjson -= 273.15;
@@ -52,6 +53,10 @@ int main(){
     std::cout<< "Visibility\t:\t" << data["visibility"] << " m" << std::endl;
     std::cout<< "Wind Speed\t:\t" << data["wind"]["speed"] << " m/s | Deg\t:" << data["wind"]["deg"] << std::endl;
     std::cout<<"\n~~~~~~~~~~~~~~~~~~~~~~~~~\n" << std::endl;
+    }else {
+      // Invalid City
+      std::cout<< "Please enter a valid city name" << end;
+    }
   }
   return 0;
 }
